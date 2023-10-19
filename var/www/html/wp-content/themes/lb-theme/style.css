@@ -1,0 +1,28 @@
+/*
+Theme Name: LB-theme
+Author: Luis Bedoya
+Description: Tema para prueba tecnica Desarrollador SSR Wordpress - Afrus Impact Technologies
+Version: 1.0
+*/
+
+/* Estilos para el menú principal */
+.main-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu li {
+    display: inline;
+    margin: 10px;
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.main-menu a:hover {
+    color: #007bff;
+}

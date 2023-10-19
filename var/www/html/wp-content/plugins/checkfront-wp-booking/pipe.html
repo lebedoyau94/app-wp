@@ -1,0 +1,25 @@
+<html>
+       <body onload="parentIframeResize()">
+        <script> 
+            function parentIframeResize() {
+                var height = getParam('height');
+                parent.parent.resizeIframe(height);
+            }
+            function getParam( name ) {
+                name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+                var regexS = "[\\?&]"+name+"=([^&#]*)";
+                var regex = new RegExp( regexS );
+                var results = regex.exec( window.location.href );
+                if( results == null )
+                return "";
+                else
+                return results[1];
+            }
+		</script>
+		<pre>
+		This is a static helper file that improves performance, rendering and sizing of the Checkfront Booking System.
+		It should be placed on the same server where the booking portal is hosted and referenced in the embed code.
+		For more information see: <a href="http://www.checkfront.com/support/droplet#helper">http://www.checkfront.com/support/droplet#helper</a>
+		</pre>
+ </body>
+</html>
