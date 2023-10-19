@@ -1,0 +1,16 @@
+/* Estilo CSS para el contenedor del iframe */
+.embedded-iframe-container {
+    position: relative;
+    padding-bottom: 56.25%; /* Proporción 16:9 para videos (ajustar según tus necesidades) */
+    height: 0;
+    overflow: hidden;
+}
+
+/* Estilo CSS para el iframe dentro del contenedor */
+.embedded-iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
