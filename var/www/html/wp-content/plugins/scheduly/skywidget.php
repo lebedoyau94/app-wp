@@ -52,7 +52,7 @@ if (!class_exists('schedulyWidgetBookings')) {
 
             if(isset($_POST) && !empty($_POST['schedulyInsertFooter'])) {
                 $schedulyInsertFooter = sanitize_text_field($_POST['schedulyInsertFooter']);
-                    $url = 'https://scheduly.com/api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
+                    $url = 'http://sch.dev.com:8000/api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
                     $response = wp_remote_get($url, 
                     array(
                         'blocking' => true,
@@ -66,7 +66,6 @@ if (!class_exists('schedulyWidgetBookings')) {
                         ));
     
                     $body = wp_remote_retrieve_body($response);
-                    
                     $result = json_decode($body,true);
                     if(!empty($result))
                     {
@@ -110,7 +109,7 @@ if (!class_exists('schedulyWidgetBookings')) {
                             wgt.type = "text/javascript";
                             wgt.async = true;
                             wgt.id = "widgetJs";
-                            wgt.src = "https://scheduly.com/themes/widget/js/widget.js?clientId=<?php echo $textScheduly; ?>";
+                            wgt.src = "http://sch.dev.com:8000/themes/widget/js/widget.js?clientId=<?php echo $textScheduly; ?>";
                             var s = document.getElementsByTagName("script")[0];
                             s.parentNode.insertBefore(wgt, s);
                         })();
