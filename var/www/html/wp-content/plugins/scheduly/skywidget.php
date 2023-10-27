@@ -31,6 +31,7 @@
 define('SCHEDULY_PLUGIN_BOOKING_DIR', str_replace('\\', '/', dirname(__FILE__)));
 
 if (!class_exists('schedulyWidgetBookings')) {
+    $base_link = "http://sch.dev.com:8000";
 
     class schedulyWidgetBookings  {
 
@@ -52,7 +53,7 @@ if (!class_exists('schedulyWidgetBookings')) {
 
             if(isset($_POST) && !empty($_POST['schedulyInsertFooter'])) {
                 $schedulyInsertFooter = sanitize_text_field($_POST['schedulyInsertFooter']);
-                    $url = 'http://sch.dev.com:8000/api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
+                    $url = $base_link.'/api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
                     $response = wp_remote_get($url, 
                     array(
                         'blocking' => true,
@@ -109,7 +110,7 @@ if (!class_exists('schedulyWidgetBookings')) {
                             wgt.type = "text/javascript";
                             wgt.async = true;
                             wgt.id = "widgetJs";
-                            wgt.src = "http://sch.dev.com:8000/themes/widget/js/widget.js?clientId=<?php echo $textScheduly; ?>";
+                            wgt.src = $base_link."/themes/widget/js/widget.js?clientId=<?php echo $textScheduly; ?>";
                             var s = document.getElementsByTagName("script")[0];
                             s.parentNode.insertBefore(wgt, s);
                         })();
