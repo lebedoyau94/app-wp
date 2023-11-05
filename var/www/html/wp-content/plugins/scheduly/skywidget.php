@@ -31,7 +31,8 @@
 define('SCHEDULY_PLUGIN_BOOKING_DIR', str_replace('\\', '/', dirname(__FILE__)));
 
 if (!class_exists('schedulyWidgetBookings')) {
-    $base_link = "http://sch.dev.com:8000";
+
+    
 
     class schedulyWidgetBookings  {
 
@@ -40,6 +41,7 @@ if (!class_exists('schedulyWidgetBookings')) {
             add_action('admin_init', array(&$this, 'schedulyAdminInit'));
             add_action('admin_menu', array(&$this, 'schedulyAdminMenu'));
             add_action('wp_footer', array(&$this, 'schedulyFooter'));
+          
         }
 
         function schedulyInit() {
@@ -49,11 +51,14 @@ if (!class_exists('schedulyWidgetBookings')) {
         function schedulyAdminInit() {
 
             // register settings for sitewide script
-            register_setting('scheduly', 'schedulyInsertFooter', 'trim');
+            register_setting('scheduly_settings_group', 'schedulyInsertFooter', 'trim');
+            register_setting('scheduly_settings_group', 'schedulyPluginActive');
+
+            register_setting('scheduly_shortcodes_group', 'scheduly_links');
 
             if(isset($_POST) && !empty($_POST['schedulyInsertFooter'])) {
                 $schedulyInsertFooter = sanitize_text_field($_POST['schedulyInsertFooter']);
-                    $url = $base_link.'/api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
+                    $url = 'http://sch.dev.com:8000/api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
                     $response = wp_remote_get($url, 
                     array(
                         'blocking' => true,
@@ -96,7 +101,8 @@ if (!class_exists('schedulyWidgetBookings')) {
         }
 
         function schedulyFooter() {
-            if (!is_admin() && !is_feed() && !is_robots() && !is_trackback()) {
+         
+            if (get_option('schedulyPluginActive') && !is_admin() && !is_feed() && !is_robots() && !is_trackback()) {
                 $textScheduly = get_option('schedulyInsertFooter', '');
                 $textScheduly = convert_smilies($textScheduly);
                 $textScheduly = do_shortcode($textScheduly);
@@ -110,7 +116,7 @@ if (!class_exists('schedulyWidgetBookings')) {
                             wgt.type = "text/javascript";
                             wgt.async = true;
                             wgt.id = "widgetJs";
-                            wgt.src = $base_link."/themes/widget/js/widget.js?clientId=<?php echo $textScheduly; ?>";
+                            wgt.src = "http://sch.dev.com:8000/themes/widget/js/widget.js?clientId=<?php echo $textScheduly; ?>";
                             var s = document.getElementsByTagName("script")[0];
                             s.parentNode.insertBefore(wgt, s);
                         })();
@@ -200,6 +206,37 @@ if (!class_exists('schedulyWidgetBookings')) {
         global $wpdb;
         delete_option("schedulyInsertFooter");
     }
+
+    function scheduly_register_settings() {
+        register_setting('scheduly', 'scheduly_links');
+        register_setting('scheduly', 'scheduly_link_main'); 
+    }
+    
+    add_action('admin_init', 'scheduly_register_settings');
+
+    function scheduly_shortcode_handler($atts) {
+        $atts = shortcode_atts(array('name' => ''), $atts, 'scheduly_iframe');
+        $links = get_option('scheduly_links', array());
+        foreach ($links as $link) {
+            if ($link['name'] == $atts['name']) {
+                return "<div class='embedded-iframe-container'> <iframe src='{$link['url']}' allowfullscreen></iframe></div>"; 
+            }
+        }
+        return ''; // Si no se encuentra el enlace
+    }
+    
+    add_shortcode('scheduly_iframe', 'scheduly_shortcode_handler');
+    
+    function scheduly_shortcode_all_handler() {
+        $links = get_option('scheduly_links', array());
+        $output = '';
+        foreach ($links as $link) {
+            $output .= "<iframe src='{$link['url']}'></iframe>\n"; // Ajusta esto según sea necesario
+        }
+        return $output;
+    }
+    
+    add_shortcode('shortcode_all', 'scheduly_shortcode_all_handler');
 
     $scedulyHeaderAndFooterScripts = new schedulyWidgetBookings();
 }

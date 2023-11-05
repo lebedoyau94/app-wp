@@ -14,3 +14,41 @@ color: #32373c;
 outline: 0;
 transition: 50ms border-color ease-in-out;
 }
+
+/* .scheduly-link-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.scheduly-link-row input[type="text"] {
+    margin-right: 5px;
+}
+
+.scheduly-link-row .shortcode-display {
+    flex-grow: 1;
+}
+
+.remove-row {
+    background-color: #ff6666;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#add-new-url {
+    margin-top: 10px;
+}
+
+/* Estilos para los inputs de nombre y url */
+.scheduly-link-row input[type="text"]:not(.large-input) {
+    flex-grow: 1;
+    margin-right: 5px;
+}
+
+/* Estilos específicos para el input del enlace principal */
+.scheduly-link-row input.large-input {
+    flex-grow: 2; /* Esto hará que sea más grande que los otros inputs */
+    margin-right: 5px;
+} */
