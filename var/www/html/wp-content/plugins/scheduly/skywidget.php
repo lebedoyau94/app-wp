@@ -31,9 +31,8 @@
 define('SCHEDULY_PLUGIN_BOOKING_DIR', str_replace('\\', '/', dirname(__FILE__)));
 
 if (!class_exists('schedulyWidgetBookings')) {
-
     
-
+    
     class schedulyWidgetBookings  {
 
         function __construct() {
@@ -58,7 +57,9 @@ if (!class_exists('schedulyWidgetBookings')) {
 
             if(isset($_POST) && !empty($_POST['schedulyInsertFooter'])) {
                 $schedulyInsertFooter = sanitize_text_field($_POST['schedulyInsertFooter']);
-                    $url = 'http://sch.dev.com:8000/api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
+                // $base_ruta = "https://scheduly.zontly.com/" ;
+                $base_ruta = "http://sch.dev.com:8000/" ;
+                    $url = $base_ruta.'api/V_1/plugin/checkClientId/'.$schedulyInsertFooter.'';
                     $response = wp_remote_get($url, 
                     array(
                         'blocking' => true,
@@ -112,11 +113,15 @@ if (!class_exists('schedulyWidgetBookings')) {
                     ?>
                     <script type="text/javascript">
                         (function () {
+                            // var route_link = "https://scheduly.zontly.com/" ;
+                            // var route_link = "http://sch.dev.com:8000/" ;
+                            
                             var wgt = document.createElement("script");
                             wgt.type = "text/javascript";
                             wgt.async = true;
                             wgt.id = "widgetJs";
-                            wgt.src = "http://sch.dev.com:8000/themes/widget/js/widget.js?clientId=<?php echo $textScheduly; ?>";
+                            wgt.src = "http://sch.dev.com:8000/themes/widget/js/widget.js?clientId=<?= $textScheduly; ?>";
+                            // console.log(wgt.src);
                             var s = document.getElementsByTagName("script")[0];
                             s.parentNode.insertBefore(wgt, s);
                         })();
@@ -222,7 +227,7 @@ if (!class_exists('schedulyWidgetBookings')) {
                 return "<div class='embedded-iframe-container'> <iframe src='{$link['url']}' allowfullscreen></iframe></div>"; 
             }
         }
-        return ''; // Si no se encuentra el enlace
+        return ''; 
     }
     
     add_shortcode('scheduly_iframe', 'scheduly_shortcode_handler');
@@ -231,7 +236,7 @@ if (!class_exists('schedulyWidgetBookings')) {
         $links = get_option('scheduly_links', array());
         $output = '';
         foreach ($links as $link) {
-            $output .= "<iframe src='{$link['url']}'></iframe>\n"; // Ajusta esto según sea necesario
+            $output .= "<iframe src='{$link['url']}' allowfullscreen></iframe>\n";
         }
         return $output;
     }
