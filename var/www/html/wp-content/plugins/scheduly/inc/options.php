@@ -53,7 +53,7 @@ wp_enqueue_style('style_css');
 
                             <h3 class="shfs-labels footerlabel" for="schedulyInsertFooter"><?php _e('Please enter your partner ID:', 'scheduly'); ?></h3>
                             <div class="form-required term-name-wrap">
-                                <input style="width:98%;" rows="10" cols="57" id="schedulyInsertFooter" name="schedulyInsertFooter" value="<?php echo esc_html(get_option('schedulyInsertFooter')); ?>" aria-required="true" required>
+                                <input style="width:40%;" rows="10" cols="57" id="schedulyInsertFooter" name="schedulyInsertFooter" value="<?php echo esc_html(get_option('schedulyInsertFooter')); ?>" aria-required="true" required>
                             </div>
                             <br>
                             <div class="form-required term-name-wrap">
@@ -87,7 +87,7 @@ wp_enqueue_style('style_css');
                         <form class="validate" name="dofollow" action="options.php" method="post">
                             <?php settings_fields('scheduly_shortcodes_group'); ?>
                             <br>
-                            <!-- Título para las categorías -->
+                            <!-- Title for categories -->
                             <h2><?php _e('Categorías', 'scheduly'); ?></h2>
                             <div id="scheduly-links-wrapper">
                                 <?php
@@ -96,15 +96,15 @@ wp_enqueue_style('style_css');
                                     foreach ($links as $index => $link_data) {
                                         ?>
                                         <div class="scheduly-link-row">
-                                            <input type="text" name="scheduly_links[<?php echo $index; ?>][name]" value="<?php echo esc_attr($link_data['name']); ?>" placeholder="Nombre" />
-                                            <input type="text" name="scheduly_links[<?php echo $index; ?>][url]" value="<?php echo esc_url($link_data['url']); ?>" placeholder="Link" />
-                                            <input type="text" class="shortcode-display" name="scheduly_links[<?php echo $index; ?>][shortcode]" value="[scheduly_iframe name='<?php echo esc_attr($link_data['name']); ?>']" readonly />
+                                            <input type="text" name="scheduly_links[<?php echo $index; ?>][name]" value="<?php echo esc_attr($link_data['name']); ?>" placeholder="Nombre" style="width: 15%;" />
+                                            <input type="text" name="scheduly_links[<?php echo $index; ?>][url]" value="<?php echo esc_url($link_data['url']); ?>" placeholder="Link" style="width: 38%;" />
+                                            <input type="text" class="shortcode-display" name="scheduly_links[<?php echo $index; ?>][shortcode]" value="[scheduly_iframe name='<?php echo esc_attr($link_data['name']); ?>']" readonly style="width: 25%;" />
+                                            <button type="button" class="copy-button">Copy</button>
                                             <button type="button" class="remove-row">X</button>
                                         </div>
                                         <?php
                                     }
                                 } else {
-                                    // Si no hay enlaces, muestra una fila vacía
                                     ?>
                                     <div class="scheduly-link-row">
                                         <input type="text" name="scheduly_links[0][name]" value="" placeholder="Nombre" />
@@ -149,9 +149,23 @@ wp_enqueue_style('style_css');
             linkIndex++;
         });
 
-        // Evento delegado para capturar clics en botones que pueden no existir aún
+        // Delegated event to capture clicks on buttons that may not yet exist
         $('#scheduly-links-wrapper').on('click', '.remove-row', function() {
             $(this).closest('.scheduly-link-row').remove();
+        });
+    });
+</script>
+<script>
+    // Function to copy shortcode field content to clipboard
+    function copyToClipboard(inputElement) {
+        inputElement.select();
+        document.execCommand('copy');
+    }
+    
+    document.querySelectorAll('.copy-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var shortcodeInput = this.previousElementSibling; 
+            copyToClipboard(shortcodeInput);
         });
     });
 </script>
