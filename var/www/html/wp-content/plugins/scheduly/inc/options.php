@@ -98,7 +98,8 @@ wp_enqueue_style('style_css');
                                         <div class="scheduly-link-row">
                                             <input type="text" name="scheduly_links[<?php echo $index; ?>][name]" value="<?php echo esc_attr($link_data['name']); ?>" placeholder="Nombre" style="width: 15%;" />
                                             <input type="text" name="scheduly_links[<?php echo $index; ?>][url]" value="<?php echo esc_url($link_data['url']); ?>" placeholder="Link" style="width: 38%;" />
-                                            <input type="text" class="shortcode-display" name="scheduly_links[<?php echo $index; ?>][shortcode]" value="[scheduly_iframe name='<?php echo esc_attr($link_data['name']); ?>']" readonly style="width: 25%;" />
+                                            <input type="text" class="shortcode-display" name="scheduly_links[<?php echo $index; ?>][shortcode]" value="[scheduly_iframe name='<?php echo esc_attr($link_data['name']); ?>' height='230' ]" readonly style="width: 25%;" />
+                                            
                                             <button type="button" class="copy-button">Copy</button>
                                             <button type="button" class="remove-row">X</button>
                                         </div>

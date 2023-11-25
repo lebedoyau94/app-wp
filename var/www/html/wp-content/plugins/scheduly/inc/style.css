@@ -51,4 +51,4 @@ transition: 50ms border-color ease-in-out;
 .scheduly-link-row input.large-input {
     flex-grow: 2; /* Esto hará que sea más grande que los otros inputs */
     margin-right: 5px;
-} */
+}
