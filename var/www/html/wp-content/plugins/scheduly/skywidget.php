@@ -49,6 +49,9 @@ if (!class_exists('schedulyWidgetBookings')) {
             // Registra e incluye el archivo CSS
             wp_register_style('scheduly-styles', plugin_dir_url(__FILE__) . 'inc/style.css');
             wp_enqueue_style('scheduly-styles');
+
+            // Añade un script para manipular el contenido del iframe después de cargar
+             wp_enqueue_script('scheduly-iframe-script', plugin_dir_url(__FILE__) . 'inc/iframe-script.js', array('jquery'), null, true);
         }
 
         function schedulyAdminInit() {
